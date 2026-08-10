@@ -1,19 +1,20 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { RevealOnScroll } from "@/components/effects/reveal-on-scroll";
-import { MagneticButton } from "@/components/effects/magnetic-button";
+import { ArrowLink } from "@/components/effects/arrow-link";
 import { CataPhoneShowcase } from "@/components/sections/cata-phone-showcase";
 import { ContactForm } from "@/components/sections/contact-form";
 import { StripeWarp } from "@/components/effects/stripe-warp";
 import { HalftoneTexture } from "@/components/effects/halftone-texture";
 import { DreamBigBurst } from "@/components/effects/dream-big-burst";
-import { NavLogoReveal } from "@/components/effects/nav-logo-reveal";
 import { FaqSection } from "@/components/sections/faq-section";
 import { ServiceFunnelForm } from "@/components/sections/service-funnel-form";
+import { SiteNav } from "@/components/layout/site-nav";
 
 const navLinksLeft = [
   { label: "Capacidades", href: "#capabilities" },
   { label: "Trabajo", href: "#work" },
+  { label: "Studio", href: "/studio" },
 ];
 const navLinksRight = [
   { label: "Nosotros", href: "#about" },
@@ -34,44 +35,10 @@ const capabilities = [
   ["04", "Tecnología y soporte", "Infraestructura, implementación y acompañamiento técnico para negocios en movimiento."],
 ];
 
-function ArrowLink({ href, children, light = false }: { href: string; children: React.ReactNode; light?: boolean }) {
-  const external = href.startsWith("http") || href.startsWith("mailto:");
-  return (
-    <MagneticButton
-      href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
-      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className={`group inline-flex items-center gap-4 rounded-full border px-6 py-3 text-sm font-semibold transition-colors ${
-        light
-          ? "border-white/25 text-white hover:bg-white hover:text-black"
-          : "border-black/20 text-black hover:bg-black hover:text-white"
-      }`}
-    >
-      {children}
-      <ArrowUpRight aria-hidden className="size-4 transition-transform group-hover:rotate-45" />
-      {external && <span className="sr-only">(abre en una nueva ventana)</span>}
-    </MagneticButton>
-  );
-}
-
 export function MonarkaHomeSections() {
   return (
     <main className="monarka-home bg-[#050505] text-[#f4f4ef]">
-      <nav aria-label="Navegación principal" className="fixed inset-x-0 top-0 z-50 mix-blend-difference">
-        <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-5 md:px-10">
-          <a href="#top" aria-label="Monarka TECH, inicio" className="relative block h-8 w-36">
-            <Image src="/assets/monarka-logo-dark.png" alt="" fill priority sizes="144px" className="object-contain object-left" />
-          </a>
-          <div className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.16em] md:flex">
-            {navLinksLeft.map((link) => <a key={link.href} href={link.href} className="transition-opacity hover:opacity-50">{link.label}</a>)}
-            <NavLogoReveal size={50} />
-            {navLinksRight.map((link) => <a key={link.href} href={link.href} className="transition-opacity hover:opacity-50">{link.label}</a>)}
-          </div>
-          <a href="mailto:hello@monarka.tech" className="rounded-full border border-white/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition-colors hover:bg-white hover:text-black">
-            Hablemos
-          </a>
-        </div>
-      </nav>
+      <SiteNav logoHref="#top" navLinksLeft={navLinksLeft} navLinksRight={navLinksRight} />
 
       <section id="top" aria-hidden className="h-20" />
 
@@ -101,6 +68,19 @@ export function MonarkaHomeSections() {
                 </div>
               </RevealOnScroll>
             ))}
+            <RevealOnScroll delay={capabilities.length * 0.12} className="md:col-span-2">
+              <a
+                href="/studio"
+                className="group flex h-full flex-col justify-between gap-6 rounded-[1.5rem] border border-white/15 bg-white/[0.03] p-8 transition-colors hover:border-[#3d8bff]/50 hover:bg-white/[0.06] md:flex-row md:items-center md:gap-10 md:p-10"
+              >
+                <div>
+                  <span className="text-xs font-semibold text-white/35">05</span>
+                  <h3 className="mt-4 text-3xl font-medium tracking-[-0.04em] transition-colors group-hover:text-[#72aaff] md:text-4xl">Monarka 3D Studio</h3>
+                  <p className="mt-4 max-w-md text-sm leading-6 text-white/50 md:text-base">Medios 3D y sonido — audio espacial para anuncios, y experiencias inmersivas en camino.</p>
+                </div>
+                <ArrowUpRight aria-hidden className="size-8 shrink-0 text-white/50 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#72aaff] md:size-10" />
+              </a>
+            </RevealOnScroll>
           </div>
         </div>
       </section>
